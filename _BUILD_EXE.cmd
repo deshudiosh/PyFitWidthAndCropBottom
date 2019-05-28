@@ -1,0 +1,1 @@
+pyinstaller fwacb.spec --onefile
