@@ -73,12 +73,25 @@ def is_line_white(img:Image.Image, width, line_num):
     return is_white
 
 
+def is_middle_pixel_white(img:Image.Image, width, line_num):
+    is_white = True
+
+    middle_pixel = int(width/2)
+    color = img.getpixel((middle_pixel, line_num))
+    avg_val = sum(color)/len(color)
+
+    if avg_val < 250:
+        is_white = False
+
+    return is_white
+
+
 def img_bottom_margin(img: Image.Image) -> Image.Image:
     w, h = img.size
 
     current_margin = 0
     for y in reversed(range(h)):
-        if is_line_white(img, w, y):
+        if is_middle_pixel_white(img, w, y):
             current_margin += 1
         else:
             break
